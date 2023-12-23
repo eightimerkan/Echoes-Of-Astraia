@@ -66,8 +66,8 @@
   <ItemGroup>
     <Compile Include="Assets\PrintToConsole.cs" />
     <Compile Include="Assets\Scripts\StartButtonController.cs" />
-    <Compile Include="Assets\Scripts\test.cs" />
-    <Compile Include="Assets\Scripts\testscript.cs" />
+    <Compile Include="Assets\Scripts\EnemyController.cs" />
+    <Compile Include="Assets\Scripts\PlayerController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
