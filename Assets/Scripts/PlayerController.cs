@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -10,8 +11,18 @@ public class PlayerController : MonoBehaviour
     public bool invincible = false;
     public float invincibleTimeout = 2f;
     public float invincibleTimer = 0f;
-
+    public Rigidbody2D rb;
     public bool insideEnemy = false;
+
+    public GameObject projectilePrefab;
+    public Transform launchOffSet;
+    public float projectileSpeed = 10f;
+
+    
+
+   
+
+    
 
     //public SpriteRenderer yaralanmazEfekti;
     void Start()
@@ -22,10 +33,10 @@ public class PlayerController : MonoBehaviour
      void FixedUpdate()
     {
         var movement = Input.GetAxis("Horizontal");
-        transform.position += new Vector3(movement, 0, 0)  * Time.deltaTime * movementSpeed;
+        transform.position += new UnityEngine.Vector3(movement, 0, 0)  * Time.deltaTime * movementSpeed;
 
         var movement2 = Input.GetAxis("Vertical");
-        transform.position += new Vector3(0, movement2, 0) * Time.deltaTime * movementSpeed;
+        transform.position += new UnityEngine.Vector3(0, movement2, 0) * Time.deltaTime * movementSpeed;
 
     }
 
@@ -33,6 +44,31 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         invincibleControl();
+        if (Input.GetMouseButtonDown(0))
+        {
+            /*Debug.Log("mouse tık");
+            Instantiate(projectilePrefab, launchOffSet.position, transform.rotation);*/
+
+            // Mouse pozisyonunu al
+            UnityEngine.Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePosition.z = 0f;
+
+            // Yaratılacak projectile'ın rotasyonunu ve yönünü ayarla
+            UnityEngine.Vector2 direction = (mousePosition - launchOffSet.position).normalized;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            UnityEngine.Quaternion rotation = UnityEngine.Quaternion.AngleAxis(angle, UnityEngine.Vector3.forward);
+
+            // Projectile'ı yarat ve hedefine doğru gönder
+            GameObject newProjectile = Instantiate(projectilePrefab, launchOffSet.position, rotation);
+            Rigidbody2D rb = newProjectile.GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                rb.velocity = direction * projectileSpeed;
+            }
+
+
+        }
+
     }
 
     /*private void OnTriggerStay2D(Collider2D collider)

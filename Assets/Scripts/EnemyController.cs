@@ -6,6 +6,7 @@ public class EnemyController : MonoBehaviour
 {
     // Start is called before the first frame update
     public float speed = 10;
+    public int enemyHealth = 50;
     private GameObject player;
 
     //public ProjectileBehaviour projectilePrefab;
@@ -20,6 +21,7 @@ public class EnemyController : MonoBehaviour
     void Update()
     {
         followPlayer();
+
     }
 
     public void followPlayer()
@@ -27,5 +29,14 @@ public class EnemyController : MonoBehaviour
         Vector3 lookDirection = (player.transform.position - transform.position).normalized;
         transform.position += lookDirection * Time.deltaTime * speed;
 
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        if(other.tag == "Projectile"){
+            enemyHealth -= 10;
+            if(enemyHealth < 0){
+                Destroy(this.gameObject);
+            }
+        }    
     }
 }

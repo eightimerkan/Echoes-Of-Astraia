@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="Assets\PrintToConsole.cs" />
     <Compile Include="Assets\Scripts\StartButtonController.cs" />
+    <Compile Include="Assets\Scripts\ProjectileBehaviour.cs" />
     <Compile Include="Assets\Scripts\EnemyController.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
   </ItemGroup>
