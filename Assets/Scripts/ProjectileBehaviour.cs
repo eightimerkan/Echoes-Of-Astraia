@@ -6,7 +6,7 @@ using UnityEngine;
 public class ProjectileBehaviour : MonoBehaviour
 {
     // Start is called before the first frame update
-    public float speed = 20f;
+    public float speed = 5f;
     private UnityEngine.Vector3 targetPosition;
 
     //private UnityEngine.Vector3 lookDirection;
@@ -17,13 +17,17 @@ public class ProjectileBehaviour : MonoBehaviour
 
         // Fare pozisyonunu al ve hedef konumunu ayarla
         targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        
-         
+
+
         targetPosition.z = 0f;
-        Debug.Log("Target position x: " + targetPosition.x + "Target position y: " + targetPosition.y  + "Target position z: "+ targetPosition.z);
+        Debug.Log("Target position x: " + targetPosition.x + "Target position y: " + targetPosition.y + "Target position z: " + targetPosition.z);
 
         // Projectile'ın hedefe doğru dönmesi
         UnityEngine.Vector2 direction = (targetPosition - transform.position).normalized;
+
+        targetPosition.x += 10 * direction.x;
+        targetPosition.y += 10 * direction.y;
+
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = UnityEngine.Quaternion.AngleAxis(angle, UnityEngine.Vector3.forward);
     }
@@ -43,12 +47,12 @@ public class ProjectileBehaviour : MonoBehaviour
         }
     }
 
-     private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        
-        if(collision.gameObject.tag == "Border" || collision.gameObject.tag == "Enemy")
+
+        if (collision.gameObject.tag == "Border" || collision.gameObject.tag == "Enemy")
         {
             Destroy(this.gameObject);
-        }       
+        }
     }
 }

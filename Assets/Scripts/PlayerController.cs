@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     // Start is called before the first frame update
     public float movementSpeed = 5;
-    public int health = 3; 
+    public int health = 3;
     public bool invincible = false;
     public float invincibleTimeout = 2f;
     public float invincibleTimer = 0f;
@@ -18,22 +18,17 @@ public class PlayerController : MonoBehaviour
     public Transform launchOffSet;
     public float projectileSpeed = 10f;
 
-    
-
-   
-
-    
 
     //public SpriteRenderer yaralanmazEfekti;
     void Start()
     {
-        
+
     }
 
-     void FixedUpdate()
+    void FixedUpdate()
     {
         var movement = Input.GetAxis("Horizontal");
-        transform.position += new UnityEngine.Vector3(movement, 0, 0)  * Time.deltaTime * movementSpeed;
+        transform.position += new UnityEngine.Vector3(movement, 0, 0) * Time.deltaTime * movementSpeed;
 
         var movement2 = Input.GetAxis("Vertical");
         transform.position += new UnityEngine.Vector3(0, movement2, 0) * Time.deltaTime * movementSpeed;
@@ -140,7 +135,7 @@ public class PlayerController : MonoBehaviour
                 //yaralanmazEfekti.color = new Color(Random.value, Random.value, Random.value);
             }
         }
-        else if(insideEnemy)
+        else if (insideEnemy)
         {
             loseHealth();
         }
@@ -161,8 +156,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void OnTriggerExit2D(Collider2D other) {
-        if(other.tag == "Enemy"){
+    public void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.tag == "Enemy")
+        {
             insideEnemy = false;
 
         }

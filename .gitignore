@@ -112,3 +112,5 @@ $RECYCLE.BIN/
 
 # JetBrains Rider
 .idea/
+
+Assembly-CSharp.csproj
